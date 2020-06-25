@@ -35,7 +35,7 @@ const EncountersList = () => {
 
             return searchData.some(sd => sd.includes(searchFilterLowercase));
         });
-    }, [encounters, searchFilter]);
+    }, [searchFilter]);
 
     return (
         <div className='encounters-list-container'>
