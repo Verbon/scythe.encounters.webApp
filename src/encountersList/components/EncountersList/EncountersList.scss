@@ -1,4 +1,8 @@
-.encounters-list {
+.encounters-list-container {
     display: flex;
     flex-direction: column;
+
+    &__search {
+        margin-bottom: 30px;
+    }
 }

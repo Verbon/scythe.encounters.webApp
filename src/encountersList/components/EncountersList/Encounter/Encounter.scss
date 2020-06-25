@@ -1,0 +1,13 @@
+.encounter-option {
+    &__title {
+        text-transform: uppercase;
+
+        font-weight: bold;
+    }
+
+    &--private {
+        .encounter-option__title {
+            color: orangered;
+        }
+    }
+}
