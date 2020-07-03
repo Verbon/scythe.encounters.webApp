@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import orderBy from 'lodash/orderBy';
 
 import TextField from '../../../common/components/TextField';
 import CardsList from '../../../common/components/CardsList';
@@ -12,13 +13,17 @@ import './EncountersList.scss';
 const EncountersList = () => {
     const [searchFilter, setSearchFilter] = useState('');
 
+    const sortedEncounters = useMemo(
+        () => orderBy(encounters, [e => e.number], ['asc']),
+        [],
+    );
     const filteredEncounters = useMemo(() => {
         if (!searchFilter) {
-            return encounters;
+            return sortedEncounters;
         }
         const encounterNumber = parseInt(searchFilter);
         if (!isNaN(encounterNumber)) {
-            const encounter = encounters.find(e => e.number === encounterNumber);
+            const encounter = sortedEncounters.find(e => e.number === encounterNumber);
             if (encounter) {
                 return [encounter];
             }
@@ -27,7 +32,7 @@ const EncountersList = () => {
         }
         const searchFilterLowercase = searchFilter.toLowerCase();
 
-        return encounters.filter(e => {
+        return sortedEncounters.filter(e => {
             const searchData = e.options
                 .flatMap(o => [o.title, o.description])
                 .filter(sd => !!sd)
@@ -35,7 +40,7 @@ const EncountersList = () => {
 
             return searchData.some(sd => sd.includes(searchFilterLowercase));
         });
-    }, [searchFilter]);
+    }, [searchFilter, sortedEncounters]);
 
     return (
         <div className='encounters-list-container'>
